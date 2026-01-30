@@ -6,7 +6,7 @@
 
     <groupId>dev.nxms</groupId>
     <artifactId>PrivateMessage</artifactId>
-    <version>1.1.1</version>
+    <version>1.1.2</version>
     <packaging>jar</packaging>
 
     <name>PrivateMessage</name>

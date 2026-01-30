@@ -39,7 +39,7 @@ public class MessageManager {
         File messagesFile = new File(plugin.getDataFolder(), fileName);
 
         if (!messagesFile.exists()) {
-            plugin.saveResource(fileName, false);
+            plugin.saveResource("messages_en.yml", false);
             plugin.getLogger().warning("Couldn't find messages file! Loading default messages file.");
         }
 
