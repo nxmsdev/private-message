@@ -12,18 +12,18 @@ message-received: "&8• &7{sender} &8→ &5{receiver} &8› &f{message}"
 player-not-found: "{prefix-error} &cPlayer &e{player} is offline."
 cannot-message-self: "{prefix-error} &cYou cannot send a message to yourself."
 blocked-name: "{prefix-error} &cYou cannot send messages to this player."
-usage-message: "{prefix-hint} &eUsage: /message <player> <message>"
+usage-message: "{prefix-hint} &eUsage: &7/message <player> <message>"
 
 # Reply command
 reply-sent: "&8• &5{sender} &8→ &7{receiver} &8› &f{message}"
 no-one-to-reply: "{prefix-error} &cYou have no one to reply to."
-usage-reply: "{prefix-hint} &eUsage: /reply <message>"
+usage-reply: "{prefix-hint} &eUsage: &7/reply <message>"
 
 # Spy command
 spy-enabled: "{prefix-success} &aSpy mode enabled. You will now see private messages."
 spy-disabled: "{prefix-error} &cSpy mode disabled. You will no longer see private messages."
 spy-format: "{prefix-spy} &5{sender} &8→ &7{receiver} &8› &f{message}"
-spy-invalid-argument: "{prefix-error} &cInvalid argument. Use &eon &cor &eoff&c."
+spy-invalid-argument: "{prefix-error} &cInvalid argument. Use &7on &cor &7off&c."
 
 # Reload command
 config-reloaded: "{prefix-success} &aConfiguration reloaded successfully."
