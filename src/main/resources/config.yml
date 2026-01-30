@@ -1,0 +1,9 @@
+# PrivateMessage Configuration
+
+# Language setting (available: en, pl)
+language: en
+
+# Blocked commands - players cannot message these names
+blocked-names:
+  - "Console"
+  - "Server"

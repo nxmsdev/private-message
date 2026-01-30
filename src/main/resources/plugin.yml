@@ -4,3 +4,49 @@ main: dev.nxms.privatemessage.PrivateMessage
 api-version: '1.21'
 author: nxmsdev
 website: https://www.nxms.dev
+description: Private messaging plugin for PaperMC
+
+commands:
+  message:
+    description: Send a private message to a player
+    usage: /<command> <player> <message>
+    aliases: [msg]
+  reply:
+    description: Reply to the last private message
+    usage: /<command> <message>
+    aliases: [r]
+  privatemessage:
+    description: PrivateMessage admin commands
+    usage: /<command> <subcommand>
+    permission: privatemessage.command
+    aliases: [pm]
+
+permissions:
+  privatemessage.message:
+    description: Access to /message command
+    default: true
+  privatemessage.reply:
+    description: Access to /reply command
+    default: true
+  privatemessage.spy:
+    description: Access to /privatemessage spy command
+    default: op
+  privatemessage.reload:
+    description: Access to /privatemessage reload command
+    default: op
+  privatemessage.admin:
+    description: Access to all /privatemessage commands
+    default: op
+    children:
+      privatemessage.command: true
+      privatemessage.spy: true
+      privatemessage.reload: true
+      privatemessage.reply: true
+      privatemessage.message: true
+      privatemessage.help: true
+  privatemessage.command:
+    description: Access to /privatemessage base command
+    default: op
+  privatemessage.help:
+    description: Access to /privatemessage help command
+    default: op

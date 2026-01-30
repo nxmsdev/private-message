@@ -1,0 +1,46 @@
+# PrivateMessage - English Messages
+# Author: nxmsdev
+
+prefix: "&8[&6PM&8] "
+
+# Message command
+message-sent: "&7[&aYou &7-> &e{receiver}&7] &f{message}"
+message-received: "&7[&e{sender} &7-> &aYou&7] &f{message}"
+player-not-found: "&cPlayer &e{player} &cnot found or is offline."
+cannot-message-self: "&cYou cannot send a message to yourself."
+blocked-name: "&cYou cannot send messages to this player."
+usage-message: "&cUsage: /message <player> <message>"
+
+# Reply command
+reply-sent: "&7[&aYou &7-> &e{receiver}&7] &f{message}"
+no-one-to-reply: "&cYou have no one to reply to."
+usage-reply: "&cUsage: /reply <message>"
+
+# Spy command
+spy-enabled: "&aSpy mode enabled. You will now see private messages."
+spy-disabled: "&cSpy mode disabled. You will no longer see private messages."
+spy-format: "&8[&4SPY&8] &7{sender} &8-> &7{receiver}&8: &f{message}"
+spy-invalid-argument: "&cInvalid argument. Use &eon &cor &eoff&c."
+
+# Reload command
+config-reloaded: "&aConfiguration reloaded successfully."
+
+# Help command
+help-header: "&8&m----------&r &6PrivateMessage Help &8&m----------"
+help-message: "&e/message <player> <message> &7- Send a private message"
+help-reply: "&e/reply <message> &7- Reply to last message"
+help-spy: "&e/pm spy [on/off] &7- Toggle spy mode"
+help-reload: "&e/pm reload &7- Reload configuration"
+help-help: "&e/pm help &7- Show this help message"
+help-footer: "&8&m-----------------------------------------"
+
+# Admin command
+admin-usage: "&cAvailable commands:"
+admin-usage-spy: "&7- &e/pm spy [on/off] &7- Toggle spy mode"
+admin-usage-reload: "&7- &e/pm reload &7- Reload configuration"
+admin-usage-help: "&7- &e/pm help &7- Show help message"
+unknown-subcommand: "&cUnknown subcommand. Use &e/pm help &cfor help."
+
+# General
+no-permission: "&cYou don't have permission to use this command."
+player-only: "&cThis command can only be used by players."
