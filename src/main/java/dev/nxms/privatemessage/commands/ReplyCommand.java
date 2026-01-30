@@ -75,12 +75,14 @@ public class ReplyCommand implements CommandExecutor {
      * Sends a reply message to the target player.
      */
     private void sendReply(Player sender, Player receiver, String message) {
-        sender.sendMessage(messages.getMessageNoPrefix("reply-sent",
+        sender.sendMessage(messages.getMessage("reply-sent",
+                "{sender}", sender.getName(),
                 "{receiver}", receiver.getName(),
                 "{message}", message));
 
-        receiver.sendMessage(messages.getMessageNoPrefix("message-received",
+        receiver.sendMessage(messages.getMessage("message-received",
                 "{sender}", sender.getName(),
+                "{receiver}", receiver.getName(),
                 "{message}", message));
 
         conversations.setLastConversation(sender.getUniqueId(), receiver.getUniqueId());
@@ -93,7 +95,7 @@ public class ReplyCommand implements CommandExecutor {
      * Sends the message to all players with spy mode enabled.
      */
     private void notifySpies(Player sender, Player receiver, String message) {
-        String spyMessage = messages.getMessageNoPrefix("spy-format",
+        String spyMessage = messages.getMessage("spy-format",
                 "{sender}", sender.getName(),
                 "{receiver}", receiver.getName(),
                 "{message}", message);

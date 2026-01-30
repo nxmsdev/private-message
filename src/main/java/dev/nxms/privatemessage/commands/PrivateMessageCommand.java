@@ -34,7 +34,7 @@ public class PrivateMessageCommand implements CommandExecutor {
         }
 
         if (args.length == 0) {
-            showUsage(sender);
+            handleHelp(sender);
             return true;
         }
 
@@ -48,25 +48,6 @@ public class PrivateMessageCommand implements CommandExecutor {
         }
 
         return true;
-    }
-
-    /**
-     * Displays available commands based on player permissions.
-     */
-    private void showUsage(CommandSender sender) {
-        sender.sendMessage(messages.getMessage("admin-usage"));
-
-        if (sender.hasPermission("privatemessage.spy") || sender.hasPermission("privatemessage.admin")) {
-            sender.sendMessage(messages.getMessageNoPrefix("admin-usage-spy"));
-        }
-
-        if (sender.hasPermission("privatemessage.reload") || sender.hasPermission("privatemessage.admin")) {
-            sender.sendMessage(messages.getMessageNoPrefix("admin-usage-reload"));
-        }
-
-        if (sender.hasPermission("privatemessage.help") || sender.hasPermission("privatemessage.admin")) {
-            sender.sendMessage(messages.getMessageNoPrefix("admin-usage-help"));
-        }
     }
 
     /**
@@ -125,27 +106,18 @@ public class PrivateMessageCommand implements CommandExecutor {
      * Handles the help subcommand for displaying all available commands.
      */
     private void handleHelp(CommandSender sender) {
-        if (!sender.hasPermission("privatemessage.help") && !sender.hasPermission("privatemessage.admin")) {
-            sender.sendMessage(messages.getMessage("no-permission"));
-            return;
-        }
-
-        sender.sendMessage(messages.getMessageNoPrefix("help-header"));
-        sender.sendMessage(messages.getMessageNoPrefix("help-message"));
-        sender.sendMessage(messages.getMessageNoPrefix("help-reply"));
+        sender.sendMessage(messages.getMessage("help-header"));
+        sender.sendMessage(messages.getMessage("help-message"));
+        sender.sendMessage(messages.getMessage("help-reply"));
 
         if (sender.hasPermission("privatemessage.spy") || sender.hasPermission("privatemessage.admin")) {
-            sender.sendMessage(messages.getMessageNoPrefix("help-spy"));
+            sender.sendMessage(messages.getMessage("help-spy"));
         }
 
         if (sender.hasPermission("privatemessage.reload") || sender.hasPermission("privatemessage.admin")) {
-            sender.sendMessage(messages.getMessageNoPrefix("help-reload"));
+            sender.sendMessage(messages.getMessage("help-reload"));
         }
 
-        if (sender.hasPermission("privatemessage.help") || sender.hasPermission("privatemessage.admin")) {
-            sender.sendMessage(messages.getMessageNoPrefix("help-help"));
-        }
-
-        sender.sendMessage(messages.getMessageNoPrefix("help-footer"));
+        sender.sendMessage(messages.getMessage("help-footer"));
     }
 }

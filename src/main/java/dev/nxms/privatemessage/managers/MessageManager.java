@@ -9,6 +9,8 @@ import java.io.File;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Manages localized messages loaded from language files.
@@ -18,7 +20,9 @@ public class MessageManager {
 
     private final PrivateMessage plugin;
     private FileConfiguration messagesConfig;
-    private String currentLanguage;
+
+    // Pattern to match {placeholder} format
+    private static final Pattern PLACEHOLDER_PATTERN = Pattern.compile("\\{([^}]+)}");
 
     public MessageManager(PrivateMessage plugin) {
         this.plugin = plugin;
@@ -29,7 +33,7 @@ public class MessageManager {
      * Loads messages from the appropriate language file based on configuration.
      */
     private void loadMessages() {
-        currentLanguage = plugin.getConfigManager().getLanguage();
+        String currentLanguage = plugin.getConfigManager().getLanguage();
         String fileName = "messages_" + currentLanguage + ".yml";
 
         File messagesFile = new File(plugin.getDataFolder(), fileName);
@@ -41,7 +45,6 @@ public class MessageManager {
 
         messagesConfig = YamlConfiguration.loadConfiguration(messagesFile);
 
-        // Load defaults from jar to ensure all keys exist
         InputStream defaultStream = plugin.getResource(fileName);
         if (defaultStream != null) {
             YamlConfiguration defaultConfig = YamlConfiguration.loadConfiguration(
@@ -63,46 +66,49 @@ public class MessageManager {
      * Gets a raw message string from the messages file.
      */
     public String getRawMessage(String key) {
-        return messagesConfig.getString(key, "&cMissing message: " + key);
+        return messagesConfig.getString(key, "");
     }
 
     /**
-     * Gets a formatted message with color codes translated.
+     * Replaces all {key} placeholders with values from messages file.
+     */
+    private String replacePlaceholders(String message) {
+        Matcher matcher = PLACEHOLDER_PATTERN.matcher(message);
+        StringBuffer result = new StringBuffer();
+
+        while (matcher.find()) {
+            String placeholder = matcher.group(1);
+            String value = getRawMessage(placeholder);
+
+            // Only replace if key exists in config and is not empty
+            if (!value.isEmpty()) {
+                matcher.appendReplacement(result, Matcher.quoteReplacement(value));
+            }
+        }
+
+        matcher.appendTail(result);
+        return result.toString();
+    }
+
+    /**
+     * Gets a formatted message with color codes and all placeholders replaced.
      */
     public String getMessage(String key) {
-        String prefix = getRawMessage("prefix");
         String message = getRawMessage(key);
-        return ColorUtil.translate(prefix + message);
+        message = replacePlaceholders(message);
+        return ColorUtil.translate(message);
     }
 
     /**
-     * Gets a formatted message without prefix.
-     */
-    public String getMessageNoPrefix(String key) {
-        return ColorUtil.translate(getRawMessage(key));
-    }
-
-    /**
-     * Gets a formatted message with placeholders replaced.
+     * Gets a formatted message with custom placeholders replaced.
      */
     public String getMessage(String key, String... replacements) {
         String message = getMessage(key);
-        for (int i = 0; i < replacements.length; i += 2) {
-            if (i + 1 < replacements.length) {
-                message = message.replace(replacements[i], replacements[i + 1]);
-            }
-        }
-        return message;
-    }
-
-    /**
-     * Gets a formatted message without prefix with placeholders replaced.
-     */
-    public String getMessageNoPrefix(String key, String... replacements) {
-        String message = getMessageNoPrefix(key);
-        for (int i = 0; i < replacements.length; i += 2) {
-            if (i + 1 < replacements.length) {
-                message = message.replace(replacements[i], replacements[i + 1]);
+        if (replacements != null) {
+            for (int i = 0; i < replacements.length - 1; i += 2) {
+                if (replacements[i] != null && replacements[i + 1] != null) {
+                    message = message.replace(replacements[i], replacements[i + 1]);
+                }
             }
         }
         return message;

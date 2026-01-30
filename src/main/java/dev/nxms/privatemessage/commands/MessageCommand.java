@@ -82,12 +82,14 @@ public class MessageCommand implements CommandExecutor {
      * Sends a private message from sender to receiver and updates conversation tracking.
      */
     private void sendPrivateMessage(Player sender, Player receiver, String message) {
-        sender.sendMessage(messages.getMessageNoPrefix("message-sent",
+        sender.sendMessage(messages.getMessage("message-sent",
+                "{sender}", sender.getName(),
                 "{receiver}", receiver.getName(),
                 "{message}", message));
 
-        receiver.sendMessage(messages.getMessageNoPrefix("message-received",
+        receiver.sendMessage(messages.getMessage("message-received",
                 "{sender}", sender.getName(),
+                "{receiver}", receiver.getName(),
                 "{message}", message));
 
         conversations.setLastConversation(sender.getUniqueId(), receiver.getUniqueId());
@@ -100,7 +102,7 @@ public class MessageCommand implements CommandExecutor {
      * Sends the message to all players with spy mode enabled.
      */
     private void notifySpies(Player sender, Player receiver, String message) {
-        String spyMessage = messages.getMessageNoPrefix("spy-format",
+        String spyMessage = messages.getMessage("spy-format",
                 "{sender}", sender.getName(),
                 "{receiver}", receiver.getName(),
                 "{message}", message);
