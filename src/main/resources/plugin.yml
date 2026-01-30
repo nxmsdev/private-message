@@ -1,0 +1,6 @@
+name: PrivateMessage
+version: ${project.version}
+main: dev.nxms.privatemessage.PrivateMessage
+api-version: '1.21'
+author: nxmsdev
+website: https://www.nxms.dev
